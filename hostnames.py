@@ -28,6 +28,7 @@ def get_hostinfo(prompt):         # prompts user for host-related data
     # •	Validate that two arguments have been entered.
     # •	Re-prompt when necessary.
     host_information = input(prompt).lower()
+
     while (len(host_information.split("\t")) != 2):
         print("Input error: 2 arguments required.")
         host_information = input(prompt).lower()
@@ -49,6 +50,7 @@ def get_search_string(prompt):    # prompts user for search string
     # Function parameters: prompt 
     # Function return: search string 
     # Function body: prompt user for search string
+
     reqest = input(prompt)
     return reqest
  
@@ -66,6 +68,7 @@ def search_hosts(file_handle, search_string ):         # displays matching hosts
     # Function return: True if matching hosts found, else False  
     # Function body: match each host in the hosts file with the search string and  display all matching hosts 
     results = False
+
     for line in file_handle:
         if line.find(search_string) >= 0:
             print(line)
@@ -77,6 +80,7 @@ def add_host(file_handle, host_information):             # writes host informati
     # Function purpose: write host information to hosts file 
     # Function parameters: file handle, host information 
     # Function return: none
+
     file_handle.write("\n" + host_information)
     file_handle.close()
 
@@ -85,47 +89,64 @@ def open_read(filename):            # open file in read mode
     # Function parameters: filename 
     # Function return: file handle 
     # Function body: open file in read mode with exception handling and return file handle or raise exception
+    
     try: 
         file_handle = open(filename, "r")
+    
     # we want to catch all possible exceptions  
     except Exception:  
         # re-raise exception & handle in calling function 
         print(Exception)
-        raise   
-    else: 
-       return file_handle 
+        file_handle = open(filename,"w+")
+        file_handle.close()
+        raise  
+
+    else:
+        file_handle = open(filename, "r")
+    
+    return file_handle 
     
 def open_append(filename):          # open file in append mode
     # Function purpose: open file in append mode 
     # Function parameters: filename 
     # Function return: file handle 
     # Function body: open file in append mode with exception handling and return file handle or raise exception
+    
     try: 
         file_handle = open(filename, "a")
+    
     # we want to catch all possible exceptions  
     except Exception:  
         # re-raise exception & handle in calling function 
         print(Exception)
+        file_handle = open(filename,"w+")
+        file_handle.close()
         raise   
-    else: 
-       return file_handle 
+    
+    else:
+        file_handle = open(filename, "a")
+    
+    return file_handle 
 
 
 if __name__ == "__main__" :
-    print("main")
     filename = "hostnames.txt"
     # Display menu 
     show_menu()
+
     # Get menu option 
     reqest = get_menu_option("Enter menu selection: ")
+    
     # While menu option not quit 
     while (reqest !="q"):
         # If menu option display 
         if reqest == "d":
             # Open file in read mode 
             file_handle = open_read(filename)
+    
             # Display all hosts 
             show_hosts(file_handle)
+    
         # Else if menu option search  
         elif reqest == "s":
             # Open file in read mode 
@@ -156,7 +177,7 @@ if __name__ == "__main__" :
 
         else:
             # Display wrong menu option 
-            pass
+            print("Wrong menu option")
 
         # Display menu 
         show_menu()
