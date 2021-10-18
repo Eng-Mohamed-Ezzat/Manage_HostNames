@@ -1,2 +1,7 @@
-google.com 8.8.8.8
-facebook.com 10.20.30.40
+google.com	8.8.8.8
+facebook.com	10.20.30.40
+hello.cst8245.lab	1.1.1.1
+hostl.cst8245.lab	1.2.3.4
+mohamedezzat.cst8245.lab 12.16.12.1.1
+google.com	12.1.1.1
+yahoo.com	12.16.14.1
